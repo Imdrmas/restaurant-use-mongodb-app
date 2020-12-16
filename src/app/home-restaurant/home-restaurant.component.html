@@ -1,0 +1,73 @@
+<br><br>
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-3">
+      <br>
+      <ul class="list-group">
+        <li class="list-group-item" style="background: #337ab7 !important;
+              color: #FFF; font-size: 22px; font-family: initial;"><i class='fab fa-searchengin'></i> Find restaurant: </li>
+        <li class="list-group-item">
+          <a [routerLink]="['/home-restaurant/find-all-restaurant']" routerLinkActive="router-link-active"><i class='fas fa-map-pin'></i> Find All Restaurants </a>
+        </li>
+        <li class="list-group-item">
+          <a [routerLink]="['/home-restaurant/findByPizza']" routerLinkActive="router-link-active"><i class='fas fa-map-pin'></i> Find Restaurant Pizza </a>
+        </li>
+        <li class="list-group-item">
+          <a [routerLink]="['/home-restaurant/findByBurgerKing']" routerLinkActive="router-link-active"><i class='fas fa-map-pin'></i> Find by burgerking </a>
+        </li>
+        <li class="list-group-item">
+          <a [routerLink]="['/home-restaurant/findRestaurantBorough']" routerLinkActive="router-link-active"><i class='fas fa-map-pin'></i> Find by borough </a>
+        </li>
+        <li class="list-group-item">
+          <a [routerLink]="['/home-restaurant/findRestaurantCuisine']" routerLinkActive="router-link-active"><i class='fas fa-map-pin'></i> Find by cuisine </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col-lg-9">
+      <div class="topnav">
+        <a class="active" routerLink="/home-restaurant"><i class="fas fa-home"></i> Home</a>
+        <a routerLink="/home-restaurant">About</a>
+        <a routerLink="/home-restaurant">Contact</a>
+        <div class="login-container">
+          <form class="example" (ngSubmit)="f.form.valid && onSubmit(restaurant.name)" #f="ngForm" novalidate>
+            <label for="name"></label><input type="text" placeholder="Find by name" name="name"
+                                             id="name" required [(ngModel)]="restaurant.name">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+      <br>
+
+        <div *ngIf="total>0" id="search">
+          <div class="panel panel-success">
+            <div class="panel-heading"><h5> Restaurants found by cuisine </h5> <br></div>
+            <div class="panel-body">
+              <div class="card" *ngFor="let res of restaurants">
+                <div class="card-img" style="background-image:url(https://assets.telegraphindia.com/telegraph/2020/Oct/1604164256_lead-thali.jpg);">
+                  <div class="overlay">
+                    <div class="overlay-content">
+                      <a class="hover" (click)="restaurantDetails(res.restaurant_id)">More details</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-content">
+                  <h2 style="font-size: 18px; color: #1b1e24;">{{res.name}}</h2>
+                  <h2 style="font-size: 13px;"> Borough : {{res.borough}} <br> Cuisine: {{res.cuisine}}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="total<=0" class="alert alert-danger">
+          <h2>No Result found</h2>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

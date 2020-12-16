@@ -1,0 +1,38 @@
+<h2> Find by cuisine </h2> <br>
+<form class="example" (ngSubmit)="f.form.valid && onSubmit(restaurant.cuisine)" #f="ngForm" novalidate>
+  <input type="text" placeholder="Find by cuisine" name="cuisine"
+         id="cuisine" required [(ngModel)]="restaurant.cuisine">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+<br>
+
+<div *ngIf="total>0">
+  <div class="panel panel-success">
+    <div class="panel-heading"><h5> Restaurants found by cuisine </h5> <br></div>
+    <div class="panel-body">
+      <div class="card" *ngFor="let res of restaurants | paginate:{itemsPerPage: 2, currentPage:p}">
+        <div class="card-img" style="background-image:url(https://assets.telegraphindia.com/telegraph/2020/Oct/1604164256_lead-thali.jpg);">
+          <div class="overlay">
+            <div class="overlay-content">
+              <a class="hover" (click)="restaurantDetails(res.cuisine)">More details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h2 style="font-size: 18px; color: #1b1e24;">{{res.name}}</h2>
+          <h2 style="font-size: 13px;"> Borough : {{res.borough}} <br> Cuisine: {{res.cuisine}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-success" style="margin-top: 12px;">
+    <div class="panel-body" style="padding-bottom: 0 !important;">
+      <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="total<=0" class="alert alert-danger">
+  <h2>No Result found</h2>
+</div>
